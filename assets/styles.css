@@ -99,3 +99,18 @@ body:has(.case-editorial){background:#fff}
 .case-editorial .case-gallery{gap:10px}
 .case-editorial .case-bottom{margin-top:45px;padding-bottom:55px}
 }
+
+/* Gallery-first layout: images on LEFT, information on RIGHT. */
+@media (min-width:801px){
+.case-editorial-layout{grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:clamp(35px,6.5vw,112px)}
+.case-editorial-images{grid-column:1;grid-row:1}
+.case-editorial-copy{grid-column:2;grid-row:1;position:sticky;top:34px;align-self:start;min-height:calc(100vh - 145px)}
+.case-editorial .case-back{padding:28px 0}
+}
+.case-editorial-images .case-cover,.case-editorial-images .case-gallery{width:100%}
+.case-editorial-images .case-gallery-item{width:100%}
+.case-editorial-images img{width:100%;height:auto;object-fit:contain}
+@media(max-width:800px){
+.case-editorial-images{order:2}
+.case-editorial-copy{order:1}
+}
