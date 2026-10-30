@@ -11,6 +11,7 @@ function render(p){
  document.title=(p.title||'Project')+' | SETTLE DESIGN';
  $('#case-title').textContent=p.title||'Untitled Project';
  $('#case-category').textContent=p.category||'RESIDENTIAL';
+ const typ=$('#case-type');if(typ)typ.textContent=p.category||'Residential Interior';
  $('#case-location').textContent=p.location||'';
  $('#case-year').textContent=p.year||'';
  const cover=$('#case-cover-img');cover.src=asset(p.cover);cover.alt=(p.title||'作品')+' — 封面照片';
