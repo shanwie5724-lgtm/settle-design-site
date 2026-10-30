@@ -77,7 +77,7 @@ function renderProjects(projects){
     frame.append(lines,label);grid.append(frame);
   }
   shown.forEach((p,i)=>{
-    const btn=document.createElement('button');btn.className='project-card';btn.type='button';btn.setAttribute('aria-label',`開啟作品：${p.title||'設計作品'}`);
+    const btn=document.createElement('a');btn.className='project-card';btn.href=`project.html?project=${encodeURIComponent(p.title||String(i))}`;btn.setAttribute('aria-label',`開啟作品：${p.title||'設計作品'}`);
     const frame=document.createElement('div');frame.className='project-image';
     const img=document.createElement('img');img.src=imgUrl(p.cover);img.alt=p.title||'室內設計作品';img.loading=i<2?'eager':'lazy';img.decoding='async';img.onerror=()=>{img.onerror=null;img.src=imgUrl('assets/photo-placeholder.svg')};
     frame.append(img);
@@ -86,7 +86,7 @@ function renderProjects(projects){
     const category=document.createElement('span');category.className='project-type';category.textContent=p.category||'INTERIOR';
     const arrow=document.createElement('span');arrow.className='project-arrow';arrow.textContent='↗';arrow.setAttribute('aria-hidden','true');
     meta.append(name,category,arrow);btn.append(frame,meta);
-    btn.addEventListener('click',()=>openProject(p));grid.append(btn);
+    grid.append(btn);
   });
 }
 function openProject(project){
