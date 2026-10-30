@@ -1,0 +1,58 @@
+media:
+  input: media
+  output: /media
+  rename: safe
+  categories: [image]
+
+content:
+  - name: site
+    label: 首頁／品牌文字
+    type: file
+    path: data/site.json
+    format: json
+    operations:
+      delete: false
+    fields:
+      - {name: brand, label: 品牌名稱, type: string}
+      - {name: hero_title, label: 首頁大標題, type: string}
+      - {name: hero_subtitle, label: 首頁小標題, type: string}
+      - {name: hero_kicker, label: 首頁上方小字, type: string}
+      - {name: hero_image, label: 首頁主照片, type: image}
+      - {name: hero_position, label: 照片裁切位置, type: string}
+      - {name: about_title, label: 關於我們標題, type: string}
+      - {name: about_tagline, label: 品牌標語, type: text}
+      - {name: about_paragraphs, label: 品牌介紹段落, type: text, list: true}
+      - {name: portfolio_title, label: 作品集標題, type: string}
+      - {name: contact_title, label: 聯絡區標題, type: string}
+      - {name: contact_intro, label: 聯絡區英文文案, type: text}
+      - {name: contact_note, label: 聯絡區中文文案, type: text}
+      - {name: contact_email, label: 聯絡信箱, type: string}
+      - {name: instagram_url, label: Instagram 完整網址, type: string}
+      - {name: copyright, label: 版權文字, type: string}
+      - {name: seo_description, label: Google 搜尋摘要, type: text}
+      - {name: theme_paper, label: 網站底色（HEX）, type: string}
+      - {name: theme_portfolio, label: 作品區底色（HEX）, type: string}
+      - {name: theme_text, label: 文字顏色（HEX）, type: string}
+      - {name: theme_accent, label: 輔助色（HEX）, type: string}
+
+  - name: projects
+    label: 作品集／照片與順序
+    type: file
+    path: data/projects.json
+    format: json
+    list: true
+    operations:
+      delete: false
+    fields:
+      - {name: title, label: 作品名稱, type: string, required: true}
+      - {name: category, label: 作品類別, type: string}
+      - {name: location, label: 地點, type: string}
+      - {name: year, label: 年份, type: string}
+      - {name: cover, label: 作品封面, type: image, required: true}
+      - name: gallery
+        label: 作品內頁照片
+        type: image
+        options:
+          multiple: true
+      - {name: description, label: 作品簡介, type: text}
+      - {name: visible, label: 是否顯示在網站, type: boolean}
