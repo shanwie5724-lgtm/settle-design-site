@@ -129,3 +129,24 @@ body:has(.case-editorial){background:#fff}
 .continuous-dialog .dialog-gallery{height:auto;max-height:none;overflow:visible;gap:8px}
 .continuous-dialog .dialog-copy{height:auto;overflow:visible}
 }
+
+/* Independent two-column scrolling, matching the home page background */
+body:has(.case-editorial){background:var(--paper)}
+@media (min-width:801px){
+ body:has(.case-editorial){height:100dvh;overflow:hidden}
+ body:has(.case-editorial) .project-site-header{height:76px}
+ .case-editorial{height:calc(100dvh - 76px);display:flex;flex-direction:column;overflow:hidden}
+ .case-editorial .case-back{flex:0 0 auto;padding:19px 0 21px}
+ .case-editorial-layout{min-height:0;flex:1;overflow:hidden;align-items:stretch}
+ .case-editorial-images{height:100%;min-height:0;overflow-y:auto;overflow-x:hidden;overscroll-behavior-y:contain;scrollbar-width:thin;padding-right:5px}
+ .case-editorial-copy{position:static;top:auto;min-height:0;height:100%;min-width:0;overflow-y:auto;overscroll-behavior-y:contain;scrollbar-width:thin;display:block;padding:0 10px 36px 0}
+ .case-editorial-links{padding-bottom:20px}
+ .case-editorial .case-bottom{display:none}
+ body:has(.case-editorial)>.footer{display:none}
+}
+@media (max-width:800px){
+ body:has(.case-editorial){height:auto;overflow-y:auto}
+ .case-editorial{height:auto;overflow:visible}
+ .case-editorial-layout{overflow:visible}
+ .case-editorial-copy,.case-editorial-images{height:auto;overflow:visible}
+}
