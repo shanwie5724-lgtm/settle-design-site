@@ -2,9 +2,6 @@
 const $ = (selector, scope=document) => scope.querySelector(selector);
 const NAV = $('#primary-nav');
 const TOGGLE = $('.menu-toggle');
-const dialog = $('#project-dialog');
-let activeGallery = [];
-let activeImageIndex = 0;
 
 // Make CMS image paths work both on username.github.io and /repository/ subpaths.
 const base = new URL('.', document.baseURI).pathname;
@@ -89,42 +86,6 @@ function renderProjects(projects){
     grid.append(btn);
   });
 }
-function openProject(project){
-  activeGallery=[...new Set([project.cover,...(Array.isArray(project.gallery)?project.gallery:[])].filter(Boolean))];
-  activeImageIndex=0;
-  setText('#dialog-title',project.title||'Project');
-  setText('#dialog-category',project.category||'INTERIOR');
-  setText('#dialog-description',project.description||'');
-  setText('#dialog-location',[project.location,project.year].filter(Boolean).join(' · '));
-  const gallery=$('#dialog-scroll-gallery');
-  gallery.querySelectorAll('.continuous-photo').forEach(el=>el.remove());
-  const original=$('#dialog-image');
-  original.src=imgUrl(activeGallery[0]);
-  original.alt=(project.title||'設計作品')+' - 1';
-  activeGallery.slice(1).forEach((src,i)=>{
-    const image=document.createElement('img');
-    image.className='continuous-photo';image.src=imgUrl(src);
-    image.alt=(project.title||'設計作品')+' - '+(i+2);
-    image.loading='lazy';gallery.append(image);
-  });
-  dialog.showModal();
-  gallery.scrollTop=0;
-  document.body.classList.add('dialog-open');
-}
-function changeGalleryImage(){
-  const src=imgUrl(activeGallery[activeImageIndex]);const n=$('#dialog-image');n.src=src;n.alt=`作品照片 ${activeImageIndex+1} / ${activeGallery.length}`;
-  n.onerror=()=>{n.onerror=null;n.src=imgUrl('assets/photo-placeholder.svg')};
-  setText('#gallery-count',`${activeImageIndex+1} / ${activeGallery.length}`);
-  $('#gallery-prev').disabled=activeGallery.length<2;$('#gallery-next').disabled=activeGallery.length<2;
-}
-function galleryStep(n){if(activeGallery.length<2)return;activeImageIndex=(activeImageIndex+n+activeGallery.length)%activeGallery.length;changeGalleryImage()}
-$('#gallery-prev').addEventListener('click',()=>galleryStep(-1));
-$('#gallery-next').addEventListener('click',()=>galleryStep(1));
-$('.dialog-close').addEventListener('click',()=>dialog.close());
-dialog.addEventListener('click',e=>{if(e.target===dialog)dialog.close()});
-dialog.addEventListener('close',()=>document.body.classList.remove('dialog-open'));
-document.addEventListener('keydown',e=>{if(!dialog.open)return;if(e.key==='ArrowLeft')galleryStep(-1);if(e.key==='ArrowRight')galleryStep(1)});
-
 const observer = new IntersectionObserver(entries=>{
   entries.forEach(entry=>{
     if(entry.isIntersecting){document.querySelectorAll('.nav-link').forEach(a=>a.classList.toggle('is-active',a.hash===`#${entry.target.id}`))}
